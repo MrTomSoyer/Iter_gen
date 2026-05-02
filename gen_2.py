@@ -1,20 +1,11 @@
 import types
 
 def flat_generator(list_of_list):
-    combined = []
-    def combining_lists(lists):
-        for item in lists:
-            if isinstance(item, list):
-                combining_lists(item)
-            else:
-                combined.append(item)
-        return combined
-
-    combined = combining_lists(list_of_list)
-    n = 0
-    while n < len(combined):
-        yield combined[n]
-        n += 1
+    for item in list_of_list:
+        if isinstance(item, list):
+            yield from flat_generator(item)
+        else:
+            yield item
 
 def test_4():
     list_of_lists_2 = [

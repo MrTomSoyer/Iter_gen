@@ -3,18 +3,13 @@ from itertools import chain
 
 class FlatIterator:
     def __init__(self, list_of_list):
-        self.combined = list(chain.from_iterable(list_of_list))
+        self.iterator = chain.from_iterable(list_of_list)
 
     def __iter__(self):
-        self.counter = 0
         return self
 
     def __next__(self):
-        if self.counter == len(self.combined):
-            raise StopIteration
-        item = self.combined[self.counter]
-        self.counter += 1
-        return item
+        return next(self.iterator)
 
 
 def test_1():

@@ -1,26 +1,21 @@
+
 class FlatIterator:
     def __init__(self, list_of_list):
         self.list_of_list = list_of_list
-        self.combined = []
 
-    def combining_lists(self, list_of_list):
+    def combining_gen(self, list_of_list):
         for item in list_of_list:
             if isinstance(item, list):
-                self.combining_lists(item)
+                yield from self.combining_gen(item)
             else:
-                self.combined.append(item)
+                yield item
 
     def __iter__(self):
-        self.combining_lists(self.list_of_list)
-        self.counter = 0
+        self.full_generator = self.combining_gen(self.list_of_list)
         return self
 
     def __next__(self):
-        if self.counter == len(self.combined):
-            raise StopIteration
-        item = self.combined[self.counter]
-        self.counter += 1
-        return item
+        return next(self.full_generator)
 
 
 def test_3():

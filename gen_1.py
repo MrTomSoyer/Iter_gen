@@ -3,11 +3,8 @@ from itertools import chain
 
 
 def flat_generator(list_of_lists):
-    combined = list(chain.from_iterable(list_of_lists))
-    n = 0
-    while n < len(combined):
-        yield combined[n]
-        n += 1
+    for item in chain.from_iterable(list_of_lists):
+        yield item
 
 
 def test_2():
